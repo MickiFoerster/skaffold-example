@@ -1,7 +1,7 @@
 FROM rust:1.65 as builder
 
 WORKDIR /workdir
-COPY app .
+COPY . .
 RUN cargo install --path .
 RUN cargo clean
 
@@ -13,5 +13,5 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 # DEBIAN_FRONTEND=noninteractive apt-get -qq install
 
-COPY --from=builder /usr/local/cargo/bin/app /usr/local/bin/app
-CMD ["app"]
+COPY --from=builder /usr/local/cargo/bin/server /usr/local/bin/server
+CMD ["server"]

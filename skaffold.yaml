@@ -1,0 +1,22 @@
+apiVersion: skaffold/v4beta1
+kind: Config
+metadata:
+  name: skaffold-example
+build:
+  artifacts:
+  - image: client
+    context: client
+    docker:
+      dockerfile: Dockerfile
+  - image: server
+    context: server
+    docker:
+      dockerfile: Dockerfile
+manifests:
+  rawYaml:
+  - client/deployment.yaml
+  - server/deployment.yaml
+portForward:
+- resourceType: service
+  resourceName: server
+  port: 3000
